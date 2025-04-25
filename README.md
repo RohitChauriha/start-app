@@ -1,8 +1,5 @@
-git pull the latest changes
-cd ./front-end-demo
-RUN docker build -t front-end-demo -f Dockerfile .
-cd ../back-end-demo
-RUN docker build -t back-end-demo -f Dockerfile .
-docker stack deploy -c start-app.yml start-app
-docker service scale <service-name>=<count>
-Test the app using http://localhost:5000/hello
+git repo: [https://github.com/RohitChauriha/start-app.git](https://github.com/RohitChauriha/start-app.git)
+ - ./deploy_stack.sh will build images and deploy the stack
+ - Test the application using url http://localhost:5000/hello
+ - Individual services can be scaled up/down using following command 
+   - docker service scale <service-name>=count
