@@ -3,17 +3,15 @@ services:
  backend:
   image: back-end-image:latest
   volumes:
-   - type: bind
    - /var/log/start-app/backend:/var/log
   deploy:
-   replicas: 3
+   replicas: 1
  frontend:
   image: front-end-image:latest
   volumes:
-   - type: bind
    - /var/log/start-app/frontend:/var/log
   ports:
    - "5000:5000"
   deploy:
-   replicas: 2
+   replicas: 1
 
