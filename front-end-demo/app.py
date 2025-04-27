@@ -9,20 +9,24 @@ server = "0.0.0.0"
 BACKEND_PORT = os.environ['BACKEND_PORT']
 BACKEND_HOSTNAME = os.environ['BACKEND_HOSTNAME']
 base_url = "http://" + BACKEND_HOSTNAME + ":" + BACKEND_PORT
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 @app.route('/hello')
 def hello_world():
-    app.logger.error("python hello world called")
     api = "/hello"
     backend_url = base_url + api
-    app.logger.debug("backend url: " + backend_url)
-    res = requests.get(url=backend_url)
-    app.logger.info("backend url: " + backend_url)
+    logger.debug("backend url: " + backend_url)
+    try:
+        logger.info("backend url: " + backend_url)
+        res = requests.get(url=backend_url)
+    except:
+        logger.error("java service not up")
     if res.status_code != 200:
-        app.logger.error("java service not up")
+        logger.error("java service response is not correct")
         return "<html><head>" + "java service not up" + "</head></html>"
-    app.logger.info("Response from backend: " + res.text)
+    logger.info("Response from backend: " + res.text)
     return "<html><head>" + res.text + "</head></html>"
 
 
