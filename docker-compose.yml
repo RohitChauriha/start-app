@@ -5,7 +5,7 @@ services:
   volumes:
    - /var/log/start-app/backend:/var/log
   deploy:
-   replicas: 1
+   replicas: 3
  frontend:
   image: front-end-image:latest
   volumes:
@@ -13,5 +13,5 @@ services:
   ports:
    - "5000:5000"
   deploy:
-   replicas: 1
+   replicas: 2
 
