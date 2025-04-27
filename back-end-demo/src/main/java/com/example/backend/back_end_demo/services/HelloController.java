@@ -4,16 +4,16 @@ package com.example.backend.back_end_demo.services;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 public class HelloController {
-    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private final static Logger LOGGER = LoggerFactory.getLogger(HelloController.class);
 
     @GetMapping("/hello")
     public String sayHello() {
-        LOGGER.log(Level.INFO, "hello world started");
+        LOGGER.info("hello world started");
         return "Hello World";
     }
 
