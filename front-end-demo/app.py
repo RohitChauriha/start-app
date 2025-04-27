@@ -1,8 +1,8 @@
+import logging
 import os
 
 import requests
 from flask import Flask
-import logging
 
 app = Flask(__name__)
 server = "0.0.0.0"
@@ -14,6 +14,8 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 file_handler.setFormatter(formatter)
 logger = logging.getLogger(__name__)
 logger.addHandler(file_handler)
+logger.setLevel('INFO')
+
 
 @app.route('/hello')
 def hello_world():
