@@ -10,12 +10,10 @@ BACKEND_PORT = os.environ['BACKEND_PORT']
 BACKEND_HOSTNAME = os.environ['BACKEND_HOSTNAME']
 base_url = "http://" + BACKEND_HOSTNAME + ":" + BACKEND_PORT
 file_handler = logging.FileHandler('/var/log/front-end-demo.log')
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(formatter)
+logger = logging.getLogger(__name__)
 logger.addHandler(file_handler)
-
 
 @app.route('/hello')
 def hello_world():

@@ -8,7 +8,7 @@
 
     <!-- File Appender with Rolling Policy -->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/app.log</file>
+        <file>/var/log/back-end-demo.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>/var/log/back-end-demo-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory> <!-- Keep logs for the last 30 days -->
