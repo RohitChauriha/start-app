@@ -2,6 +2,7 @@ import os
 
 import requests
 from flask import Flask
+import logging
 
 app = Flask(__name__)
 server = "0.0.0.0"
@@ -12,11 +13,16 @@ base_url = "http://" + BACKEND_HOSTNAME + ":" + BACKEND_PORT
 
 @app.route('/hello')
 def hello_world():
+    logging.error("python hello world called")
     api = "/hello"
     backend_url = base_url + api
+    logging.debug("backend url: " + backend_url)
     res = requests.get(url=backend_url)
+    logging.info("backend url: " + backend_url)
     if res.status_code != 200:
+        logging.error("java service not up")
         return "<html><head>" + "java service not up" + "</head></html>"
+    logging.info("Response from backend: " + res.text)
     return "<html><head>" + res.text + "</head></html>"
 
 
