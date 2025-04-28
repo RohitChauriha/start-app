@@ -15,8 +15,6 @@ import java.util.Map;
 @RestController
 @Slf4j
 public class HelloController {
-    public static String hostname = System.getenv("HOSTNAME");
-
     @GetMapping("/hello")
     public Map<String, String> sayHello() throws UnknownHostException {
         String containerId = InetAddress.getLocalHost().getHostName();
