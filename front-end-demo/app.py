@@ -31,7 +31,7 @@ def hello_world():
         logger.error("java service response is not correct")
         return "<html><head>" + "java service not up" + "</head></html>"
     logger.info("Response from backend: " + res.text)
-    return "<html><head>" + res.content + "</head></html>"
+    return "<html><head>" + res.text + "</head></html>"
 
 
 @app.route('/')
