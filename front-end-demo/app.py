@@ -27,8 +27,9 @@ def hello_world():
         res = requests.get(url=backend_url)
     except:
         logger.error("java service not up")
+        return "<html><head> java service not up </head></html>"
     if res.status_code != 200:
-        logger.error("java service response is not correct")
+        logger.error("java service response %s", res.status_code)
         return "<html><head>" + "java service not up" + "</head></html>"
     logger.info("Response from backend: " + res.text)
     return "<html><head>" + res.text + "</head></html>"
