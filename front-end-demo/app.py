@@ -25,9 +25,9 @@ def hello_world():
     try:
         logger.info("backend url: " + backend_url)
         res = requests.get(url=backend_url)
-    except:
-        logger.error("java service not up %s", res)
-        return "<html><head> java service not up </head></html>"
+    except ConnectionRefusedError:
+        logger.error("java service connection error")
+        return "<html><head> java service connection error </head></html>"
     if res.status_code != 200:
         logger.error("java service response %s", res.status_code)
         return "<html><head>" + "java service not up" + "</head></html>"
@@ -37,7 +37,21 @@ def hello_world():
 
 @app.route('/')
 def service_status():
-    return "<html><head>" + "python service is up" + "</head></html>"
+    backend_url = base_url + "/"
+    logger.debug("backend url: " + backend_url)
+    msg = "<html><head>"
+    msg_end = "</head></html>"
+    msg += "<h1>python service is up</h1>"
+    res = ""
+    try:
+        logger.info("backend url: " + backend_url)
+        res = requests.get(url=backend_url)
+    except ConnectionRefusedError:
+        logger.error("java service connection error")
+        msg += "<h2> java service connection error </h2>"
+    msg += "<h2>" + res.text + "</h2>"
+    msg += msg_end
+    return msg
 
 
 if __name__ == '__main__':
