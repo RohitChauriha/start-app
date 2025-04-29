@@ -1,5 +1,6 @@
 import logging
 import os
+import socket
 
 import requests
 from flask import Flask
@@ -22,6 +23,10 @@ def hello_world():
     api = "/hello"
     backend_url = base_url + api
     logger.debug("backend url: " + backend_url)
+    front_end_hostname = socket.gethostname()
+    msg = "<html><head>"
+    msg_end = "</head></html>"
+    msg += "<h1>" + front_end_hostname + "</h1>"
     try:
         logger.info("backend url: " + backend_url)
         res = requests.get(url=backend_url)
@@ -32,7 +37,9 @@ def hello_world():
         logger.error("java service response %s", res.status_code)
         return "<html><head>" + "java service not up" + "</head></html>"
     logger.info("Response from backend: " + res.text)
-    return "<html><head>" + res.text + "</head></html>"
+    msg += "<h1>" + res.text + "</h1>"
+    msg += msg_end
+    return msg
 
 
 @app.route('/')
@@ -48,8 +55,8 @@ def service_status():
         res = requests.get(url=backend_url)
     except ConnectionRefusedError:
         logger.error("java service connection error")
-        msg += "<h2> java service connection error </h2>"
-    msg += "<h2>" + res.text + "</h2>"
+        msg += "<h1> java service connection error </h1>"
+    msg += "<h1>" + res.text + "</h1>"
     msg += msg_end
     return msg
 
