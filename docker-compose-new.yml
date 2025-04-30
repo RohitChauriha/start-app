@@ -16,8 +16,8 @@ volumes:
 services:
   postgres:
       image: postgres:9.6.6
-#      networks:
-#        - private
+      networks:
+        - private
       volumes:
         - db-data:/var/lib/postgresql/data
       deploy:

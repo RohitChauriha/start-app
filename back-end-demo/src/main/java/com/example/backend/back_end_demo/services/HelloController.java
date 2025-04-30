@@ -1,8 +1,11 @@
 package com.example.backend.back_end_demo.services;
 
 
+import com.example.backend.back_end_demo.domain.Customer;
+import com.example.backend.back_end_demo.repository.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.InetAddress;
@@ -13,6 +16,12 @@ import java.util.Map;
 @RestController
 @Slf4j
 public class HelloController {
+    private final CustomerRepository repository;
+
+    public HelloController(CustomerRepository repository) {
+        this.repository = repository;
+    }
+
     @GetMapping("/hello")
     public Map<String, String> sayHello() throws UnknownHostException {
         String containerId = InetAddress.getLocalHost().getHostName();
@@ -22,6 +31,20 @@ public class HelloController {
         result.put("hostname", containerId);
         result.put("ip", containerAddress);
         return result;
+    }
+
+    @PostMapping("/customer")
+    public void createCustomers() {
+        repository.save(new Customer("Jack", "Bauer"));
+        repository.save(new Customer("Chloe", "O'Brian"));
+        repository.save(new Customer("Kim", "Bauer"));
+        repository.save(new Customer("David", "Palmer"));
+        repository.save(new Customer("Michelle", "Dessler"));
+    }
+
+    @GetMapping("/customer")
+    public Iterable<Customer> getCustomers() {
+        return repository.findAll();
     }
 
     @GetMapping("/")
