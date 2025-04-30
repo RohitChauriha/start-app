@@ -2,6 +2,8 @@ cd ./front-end-demo
 docker build -t front-end-image -f Dockerfile .
 cd ../back-end-demo
 docker build -t back-end-image -f Dockerfile .
+RUN mkdir -p "/var/log/start-app/frontend"
+RUN mkdir -p "/var/log/start-app/backend"
 cd ../
 #docker compose up
 docker swarm init
