@@ -42,6 +42,32 @@ def hello_world():
     return msg
 
 
+@app.route('/customer', methods=['POST'])
+def create_customer():
+    api = "/customer"
+    backend_url = base_url + api
+    try:
+        res = requests.post(url=backend_url)
+    except ConnectionRefusedError:
+        logger.error("java service connection error")
+        return "<html><head> java service connection error </head></html>"
+    logger.info("Response from backend: " + res.text)
+    return "customers created"
+
+
+@app.route('/customer', methods=['GET'])
+def get_customer():
+    api = "/customer"
+    backend_url = base_url + api
+    try:
+        res = requests.get(url=backend_url)
+    except ConnectionRefusedError:
+        logger.error("java service connection error")
+        return "<html><head> java service connection error </head></html>"
+    logger.info("Response from backend: " + res.text)
+    return res.text
+
+
 @app.route('/')
 def service_status():
     backend_url = base_url + "/"
