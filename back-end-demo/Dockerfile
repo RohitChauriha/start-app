@@ -1,3 +1,4 @@
+# These two commented blocks can be used to automate mvn build as part of image creation
 #FROM maven:3.8.3-openjdk-17 AS builder
 #COPY . /app
 #WORKDIR /app
@@ -8,7 +9,7 @@
 #COPY --from=builder /app/target/back-end-demo-0.0.1-SNAPSHOT.jar /app/back-end.jar
 #ENTRYPOINT ["java", "-jar", "/app/back-end.jar"]
 
-FROM openjdk:17 AS runtime
+FROM openjdk:17-slim
 COPY ./target/back-end-demo-0.0.1-SNAPSHOT.jar /app/back-end.jar
 WORKDIR /app
 ENTRYPOINT ["java", "-jar", "/app/back-end.jar"]
