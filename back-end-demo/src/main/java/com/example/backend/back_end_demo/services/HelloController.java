@@ -36,7 +36,7 @@ public class HelloController {
 
     @PostMapping("/customer")
     public ResponseEntity<Object> createCustomers() {
-        log.debug("creating customers!!!");
+        log.info("creating customers!!!");
         repository.save(new Customer("Jack", "Bauer"));
         repository.save(new Customer("Chloe", "O'Brian"));
         repository.save(new Customer("Kim", "Bauer"));
@@ -47,7 +47,7 @@ public class HelloController {
 
     @GetMapping("/customer")
     public Iterable<Customer> getCustomers() {
-        log.debug("fetching customers!!!");
+        log.info("fetching customers!!!");
         return repository.findAll();
     }
 

@@ -22,7 +22,7 @@ logger.setLevel('INFO')
 def hello_world():
     api = "/hello"
     backend_url = base_url + api
-    logger.debug("backend url: " + backend_url)
+    logger.info("backend url: " + backend_url)
     front_end_hostname = socket.gethostname()
     msg = "<html><head>"
     msg_end = "</head></html>"
@@ -47,7 +47,7 @@ def create_customer():
     api = "/customer"
     backend_url = base_url + api
     try:
-        logger.debug("trying to contact backend url %s for creating customers" % backend_url)
+        logger.info("trying to contact backend url %s for creating customers" % backend_url)
         res = requests.post(url=backend_url)
     except ConnectionRefusedError:
         logger.error("java service connection error")
@@ -61,7 +61,7 @@ def get_customer():
     api = "/customer"
     backend_url = base_url + api
     try:
-        logger.debug("trying to contact backend url %s for fetching customers" % backend_url)
+        logger.info("trying to contact backend url %s for fetching customers" % backend_url)
         res = requests.get(url=backend_url)
     except ConnectionRefusedError:
         logger.error("java service connection error")
