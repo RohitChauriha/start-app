@@ -10,17 +10,16 @@ networks:
       encrypted: 'true'
     attachable: true
 
-#volumes:
-#  db-data:
+volumes:
+  db-data:
 
 services:
   postgres:
       image: postgres:9.6.6
       networks:
         - private
-#        - public
-#      volumes:
-#        - db-data:/var/lib/postgresql/data
+      volumes:
+        - db-data:/var/lib/postgresql/data
       deploy:
           replicas: 1
 #          update_config:
@@ -40,16 +39,12 @@ services:
         - /var/log/start-app/backend:/var/log
       networks:
         - private
-        - public
-      ports:
-        - "8080:8080"
       environment:
         POSTGRES_HOST: 'postgres'
         POSTGRES_PORT: '5432'
         POSTGRES_USER: 'postgres'
-#        POSTGRES_DB: 'postgres'
-#      depends_on:
-#        - postgres
+      depends_on:
+        - postgres
       deploy:
           replicas: 1
 #          restart_policy:
@@ -66,14 +61,14 @@ services:
 #              reservations:
 #                cpus: '0.25'
 #                memory: 15M
-#  frontend:
-#      image: front-end-image:latest
-#      networks:
-#        - public
-##        - private
-#      volumes:
-#        - /var/log/start-app/frontend:/var/log
-#      ports:
-#        - "5000:5000"
-#      deploy:
-#        replicas: 1
+  frontend:
+      image: front-end-image:latest
+      networks:
+        - public
+        - private
+      volumes:
+        - /var/log/start-app/frontend:/var/log
+      ports:
+        - '5000:5000'
+      deploy:
+        replicas: 1

@@ -1,3 +1,4 @@
+git pull origin main
 cd ./front-end-demo
 docker build -t front-end-image -f Dockerfile .
 cd ../back-end-demo
