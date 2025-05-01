@@ -47,6 +47,7 @@ def create_customer():
     api = "/customer"
     backend_url = base_url + api
     try:
+        logger.debug("trying to contact backend url %s for creating customers" % backend_url)
         res = requests.post(url=backend_url)
     except ConnectionRefusedError:
         logger.error("java service connection error")
@@ -60,6 +61,7 @@ def get_customer():
     api = "/customer"
     backend_url = base_url + api
     try:
+        logger.debug("trying to contact backend url %s for fetching customers" % backend_url)
         res = requests.get(url=backend_url)
     except ConnectionRefusedError:
         logger.error("java service connection error")

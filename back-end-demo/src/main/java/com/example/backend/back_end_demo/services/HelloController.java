@@ -4,6 +4,7 @@ package com.example.backend.back_end_demo.services;
 import com.example.backend.back_end_demo.domain.Customer;
 import com.example.backend.back_end_demo.repository.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,16 +35,19 @@ public class HelloController {
     }
 
     @PostMapping("/customer")
-    public void createCustomers() {
+    public ResponseEntity<Object> createCustomers() {
+        log.debug("creating customers!!!");
         repository.save(new Customer("Jack", "Bauer"));
         repository.save(new Customer("Chloe", "O'Brian"));
         repository.save(new Customer("Kim", "Bauer"));
         repository.save(new Customer("David", "Palmer"));
         repository.save(new Customer("Michelle", "Dessler"));
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping("/customer")
     public Iterable<Customer> getCustomers() {
+        log.debug("fetching customers!!!");
         return repository.findAll();
     }
 
