@@ -67,6 +67,8 @@ def get_customer():
         logger.error("java service connection error")
         return "<html><head> java service connection error </head></html>"
     logger.info("Response from backend: " + res.text)
+    with open('data.json', 'w') as fp:
+        json.dump(res.text, fp)
     return res.text
 
 
