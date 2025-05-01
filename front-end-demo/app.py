@@ -1,7 +1,8 @@
+import json
 import logging
 import os
 import socket
-import json
+
 import requests
 from flask import Flask
 
@@ -48,7 +49,9 @@ def create_customer():
     backend_url = base_url + api
     try:
         logger.info("trying to contact backend url %s for creating customers" % backend_url)
-        res = requests.post(url=backend_url)
+        with open('data.json', 'r') as file:
+            data = json.load(file)
+        res = requests.post(url=backend_url, data=data)
     except ConnectionRefusedError:
         logger.error("java service connection error")
         return "<html><head> java service connection error </head></html>"
@@ -67,8 +70,8 @@ def get_customer():
         logger.error("java service connection error")
         return "<html><head> java service connection error </head></html>"
     logger.info("Response from backend: " + res.text)
-    with open('data.json', 'w') as fp:
-        json.dump(res.text, fp)
+    # with open('data.json', 'w') as fp:
+    #     json.dump(res.text, fp)
     return res.text
 
 
