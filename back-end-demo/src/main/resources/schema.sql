@@ -1,9 +1,7 @@
-DROP TABLE IF EXISTS customer;
-CREATE TABLE customer (
+CREATE SCHEMA IF NOT EXISTS START_APP;
+--DROP TABLE IF EXISTS START_APP.customer;
+CREATE TABLE IF NOT EXISTS START_APP.customer (
 id SERIAL PRIMARY KEY,
-name VARCHAR(100) NOT NULL, email VARCHAR(255) NOT NULL, UNIQUE(name)
+firstname VARCHAR(100) NOT NULL,
+lastname VARCHAR(255) NOT NULL
 );
-
-INSERT INTO customer (name, email) VALUES ('Marten Deinum', 'marten.deinum@conspect.nl'), ('Josh Long', 'jlong@pivotal.com'),
-('John Doe', 'john.doe@island.io'),
-('Jane Doe', 'jane.doe@island.io');
