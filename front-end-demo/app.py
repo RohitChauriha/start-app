@@ -42,7 +42,7 @@ def hello_world():
     return msg
 
 
-@app.route('/create_customer', methods=['POST'])
+@app.route('/customer', methods=['POST'])
 def create_customer():
     api = "/customer"
     backend_url = base_url + api
@@ -56,7 +56,7 @@ def create_customer():
     return "customers created"
 
 
-@app.route('/get-customer', methods=['GET'])
+@app.route('/customer', methods=['GET'])
 def get_customer():
     api = "/customer"
     backend_url = base_url + api
