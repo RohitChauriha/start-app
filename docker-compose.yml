@@ -34,7 +34,7 @@ services:
 #                cpus: '0.25'
 #                memory: 50M
   backend:
-      image: back-end-image:latest
+      image: rodoch/back-end-image:latest
       volumes:
         - /var/log/start-app/backend:/var/log
       networks:
@@ -62,7 +62,7 @@ services:
 #                cpus: '0.25'
 #                memory: 15M
   frontend:
-      image: front-end-image:latest
+      image: rodoch/front-end-image:latest
       networks:
         - public
         - private
