@@ -1,16 +1,74 @@
-services:
- backend:
-  image: back-end-image:latest
-  volumes:
-   - /var/log/start-app/backend:/var/log
-  deploy:
-   replicas: 2
- frontend:
-  image: front-end-image:latest
-  volumes:
-   - /var/log/start-app/frontend:/var/log
-  ports:
-   - "5000:5000"
-  deploy:
-   replicas: 2
+networks:
+  public:
+    driver: overlay
+    driver_opts:
+      encrypted: 'true'
+    attachable: true
+  private:
+    driver: overlay
+    driver_opts:
+      encrypted: 'true'
+    attachable: true
 
+volumes:
+  db-data:
+
+services:
+  postgres:
+      image: postgres:9.6.6
+      networks:
+        - private
+      volumes:
+        - db-data:/var/lib/postgresql/data
+      deploy:
+          replicas: 1
+#          update_config:
+#              order: 'stop-first'
+#          rollback_config:
+#              order: 'stop-first'
+#          resources:
+#              limits:
+#                cpus: '1.00'
+#                memory: 50M
+#              reservations:
+#                cpus: '0.25'
+#                memory: 50M
+  backend:
+      image: back-end-image:latest
+      volumes:
+        - /var/log/start-app/backend:/var/log
+      networks:
+        - private
+      environment:
+        POSTGRES_HOST: 'postgres'
+        POSTGRES_PORT: '5432'
+        POSTGRES_USER: 'postgres'
+      depends_on:
+        - postgres
+      deploy:
+          replicas: 1
+#          restart_policy:
+#            condition: on-failure
+#            max_attempts: 10
+#            delay: 5s
+#          update_config:
+#            parallelism: 1
+#            delay: 5s
+#          resources:
+#              limits:
+#                cpus: '0.50'
+#                memory: 15M
+#              reservations:
+#                cpus: '0.25'
+#                memory: 15M
+  frontend:
+      image: front-end-image:latest
+      networks:
+        - public
+        - private
+      volumes:
+        - /var/log/start-app/frontend:/var/log
+      ports:
+        - '5000:5000'
+      deploy:
+        replicas: 1
