@@ -27,10 +27,10 @@ public class Book {
 
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "author", joinColumns = @JoinColumn(name = "isbn"))
-    @Column(name = "authors", nullable = false) // 3
+    @Column(name = "authors", nullable = false)
     private List<String> authors = new ArrayList<>();
-    @Column(columnDefinition = "date", insertable = true, updatable = false)
+    @Column(columnDefinition = "date", updatable = false)
     private LocalDateTime createdAt;
-    @Column(columnDefinition = "date", insertable = true, updatable = true)
+    @Column(columnDefinition = "date")
     private LocalDateTime modifiedAt;
 }
