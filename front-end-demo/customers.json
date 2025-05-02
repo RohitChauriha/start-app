@@ -1,26 +1,21 @@
 [
   {
-    "id": 1,
     "firstname": "Jack",
     "lastname": "Bauer"
   },
   {
-    "id": 2,
     "firstname": "Chloe",
     "lastname": "O'Brian"
   },
   {
-    "id": 3,
     "firstname": "Kim",
     "lastname": "Bauer"
   },
   {
-    "id": 4,
     "firstname": "David",
     "lastname": "Palmer"
   },
   {
-    "id": 5,
     "firstname": "Michelle",
     "lastname": "Dessler"
   }
