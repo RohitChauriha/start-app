@@ -1,8 +1,11 @@
 import json
+import logging
+import os
+import sys
 
 import requests
 from flask import Flask, jsonify
-import os, logging, sys
+from requests.exceptions import Timeout, ReadTimeout, ConnectTimeout, ConnectionError
 
 app = Flask(__name__)
 server = "0.0.0.0"
@@ -11,7 +14,7 @@ if len(sys.argv) > 1:
     BACKEND_PORT = "8080"
     BACKEND_HOSTNAME = "localhost"
     base_url = "http://" + BACKEND_HOSTNAME + ":" + BACKEND_PORT
-    file_handler = logging.FileHandler('./log/front-end-demo.log')
+    file_handler = logging.FileHandler('../log/front-end-demo.log')
 else:
     BACKEND_PORT = os.environ['BACKEND_PORT']
     BACKEND_HOSTNAME = os.environ['BACKEND_HOSTNAME']
@@ -28,25 +31,21 @@ logger.setLevel('INFO')
 def create_books():
     api = "/book"
     backend_url = base_url + api
-    msg = ""
     with open('./data/books.json', 'r') as file:
         books = json.load(file)
     for book in books:
         try:
             logger.info("creating book with title %s" % book['title'])
             res = requests.post(url=backend_url, json=book)
-        except ConnectionError:
-            logger.error("not able to connect with backend service")
-            msg += "not able to connect with backend service\n"
-            return msg
-        if res.status_code != 201:
-            logger.error("failed to create book with title %s response from backend: status %s and text %s",
-                         book['title'], res.status_code, res.text)
-            msg += "failed to create book with title" + book['title'] + "\n"
-        else:
-            logger.info("successfully created book with title %s", book['title'])
-            msg += "successfully created book with title %s", book['title'] + "\n"
-    return msg
+            if res.status_code != 201:
+                logger.error("failed to create book with title %s response from backend: status %s and text %s",
+                             book['title'], res.status_code, res.text)
+            else:
+                logger.info("successfully created book with title %s", book['title'] + "\n")
+        except (Timeout, ReadTimeout, ConnectTimeout, ConnectionError) as ex:
+            logger.error("not able to connect with backend service with exception %s ", ex)
+            raise ex
+    return "SUCCESS"
 
 
 @app.route('/get-books', methods=['GET'])
@@ -54,12 +53,14 @@ def get_books():
     api = "/book"
     backend_url = base_url + api
     try:
-        logger.info("trying to contact backend url %s for getting books" % backend_url)
+        logger.info("fetching all books")
         res = requests.get(url=backend_url)
-    except ConnectionRefusedError:
-        logger.error("java service connection error")
-        return "<html><head> java service connection error </head></html>"
-    logger.info("response from backend: " + res.text)
+    except (Timeout, ReadTimeout, ConnectTimeout, ConnectionError) as ex:
+        logger.error("not able to connect with backend service with exception %s ", ex)
+        raise ex
+    if res.status_code != 200:
+        logger.error("failed to fetch all books, response from backend: status %s and text %s", res.status_code,
+                     res.text)
     return jsonify(res.text)
 
 
