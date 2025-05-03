@@ -28,19 +28,25 @@ logger.setLevel('INFO')
 def create_books():
     api = "/book"
     backend_url = base_url + api
-    try:
-        logger.info("trying to contact backend url %s for creating books" % backend_url)
-        with open('/var/data/books.json', 'r') as file:
-            books = json.load(file)
-            for book in books:
-                res = requests.post(url=backend_url, json=book)
-    except ConnectionRefusedError:
-        logger.error("java service connection error")
-        return "<html><head> java service connection error </head></html>"
-    if res.status_code != 201:
-        logger.info("Response from backend: status %s and text %s", res.status_code, res.text)
-        return "<html><head> failed to create books at backend </head></html>"
-    return "book created"
+    msg = ""
+    with open('/var/data/books.json', 'r') as file:
+        books = json.load(file)
+    for book in books:
+        try:
+            logger.info("creating book with title %s" % book['title'])
+            res = requests.post(url=backend_url, json=book)
+        except ConnectionError:
+            logger.error("not able to connect with backend service")
+            msg += "not able to connect with backend service\n"
+            return msg
+        if res.status_code != 201:
+            logger.error("failed to create book with title %s response from backend: status %s and text %s",
+                         book['title'], res.status_code, res.text)
+            msg += "failed to create book with title" + book['title'] + "\n"
+        else:
+            logger.info("successfully created book with title %s", book['title'])
+            msg += "successfully created book with title %s", book['title'] + "\n"
+    return msg
 
 
 @app.route('/get-books', methods=['GET'])
@@ -53,7 +59,7 @@ def get_books():
     except ConnectionRefusedError:
         logger.error("java service connection error")
         return "<html><head> java service connection error </head></html>"
-    logger.info("Response from backend: " + res.text)
+    logger.info("response from backend: " + res.text)
     return jsonify(res.text)
 
 
