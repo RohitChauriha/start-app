@@ -44,7 +44,7 @@ services:
         POSTGRES_PORT: '5432'
         POSTGRES_USER: 'postgres'
       depends_on:
-        - postgres
+        - database
       deploy:
           replicas: 2
 #          restart_policy:
