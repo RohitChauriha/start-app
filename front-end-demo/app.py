@@ -29,7 +29,7 @@ def create_books():
     api = "/book"
     backend_url = base_url + api
     msg = ""
-    with open('/var/data/books.json', 'r') as file:
+    with open('./data/books.json', 'r') as file:
         books = json.load(file)
     for book in books:
         try:

@@ -2,4 +2,3 @@
 *.json
 .dockerignore
 __pycache__
-data/
