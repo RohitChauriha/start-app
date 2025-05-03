@@ -12,4 +12,6 @@
 FROM openjdk:17-slim
 COPY ./target/back-end-demo-0.0.1-SNAPSHOT.jar /app/back-end.jar
 WORKDIR /app
+RUN mkdir -p /var/log/
+RUN mkdir -p /var/data/
 ENTRYPOINT ["java", "-jar", "/app/back-end.jar"]

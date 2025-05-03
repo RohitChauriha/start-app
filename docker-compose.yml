@@ -68,6 +68,7 @@ services:
         - private
       volumes:
         - /var/log/start-app/frontend:/var/log
+        - /var/data:/var/data
       ports:
         - '5000:5000'
       deploy:
