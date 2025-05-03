@@ -30,7 +30,7 @@ def create_books():
     backend_url = base_url + api
     try:
         logger.info("trying to contact backend url %s for creating books" % backend_url)
-        with open('./data/books.json', 'r') as file:
+        with open('/var/data/books.json', 'r') as file:
             books = json.load(file)
             for book in books:
                 res = requests.post(url=backend_url, json=book)

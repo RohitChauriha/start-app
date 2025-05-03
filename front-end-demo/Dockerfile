@@ -1,10 +1,7 @@
 FROM python:3.9-slim
 WORKDIR /app
 COPY . /app
-RUN mkdir -p /var/log/
-RUN chmod -R 777 /var/log/
-RUN mkdir -p /var/data/
-RUN chmod -R 777 /var/data/
+RUN mkdir -p /var/data
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 ENV BACKEND_PORT=8080
