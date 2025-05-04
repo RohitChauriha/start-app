@@ -48,7 +48,7 @@ def create_books():
         except (Timeout, ReadTimeout, ConnectTimeout, ConnectionError) as ex:
             logger.error("not able to connect with backend service with exception %s ", ex)
             raise ex
-    return success
+    return str(success)
 
 
 @app.route('/get-books', methods=['GET'])
