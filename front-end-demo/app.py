@@ -12,7 +12,7 @@ server = "0.0.0.0"
 if len(sys.argv) > 1:
     environment = sys.argv[1]
     BACKEND_PORT = "8080"
-    BACKEND_HOSTNAME = "localhost"
+    BACKEND_HOSTNAME = "127.0.0.1"
     base_url = "http://" + BACKEND_HOSTNAME + ":" + BACKEND_PORT
     file_handler = logging.FileHandler('../log/front-end-demo.log')
 else:
@@ -33,6 +33,8 @@ def create_books():
     backend_url = base_url + api
     with open('./data/books.json', 'r') as file:
         books = json.load(file)
+    logger.info("backend url is %s" % backend_url)
+    success = True
     for book in books:
         try:
             logger.info("creating book with title %s" % book['title'])
@@ -40,12 +42,13 @@ def create_books():
             if res.status_code != 201:
                 logger.error("failed to create book with title %s response from backend: status %s and text %s",
                              book['title'], res.status_code, res.text)
+                success = False
             else:
                 logger.info("successfully created book with title %s", book['title'] + "\n")
         except (Timeout, ReadTimeout, ConnectTimeout, ConnectionError) as ex:
             logger.error("not able to connect with backend service with exception %s ", ex)
             raise ex
-    return "SUCCESS"
+    return success
 
 
 @app.route('/get-books', methods=['GET'])

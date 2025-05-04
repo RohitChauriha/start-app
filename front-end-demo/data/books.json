@@ -2,29 +2,45 @@
   {
     "title": "Book1",
     "authors": [
-      "authors1",
-      "authors2"
+      {
+        "name": "author1"
+      },
+      {
+        "name": "author2"
+      }
     ]
   },
   {
     "title": "Book2",
     "authors": [
-      "authors2",
-      "authors3"
+      {
+        "name": "author2"
+      },
+      {
+        "name": "author3"
+      }
     ]
   },
   {
     "title": "Book3",
     "authors": [
-      "authors3",
-      "authors4"
+      {
+        "name": "author3"
+      },
+      {
+        "name": "author4"
+      }
     ]
   },
   {
     "title": "Book4",
     "authors": [
-      "authors4",
-      "authors5"
+      {
+        "name": "author4"
+      },
+      {
+        "name": "author5"
+      }
     ]
   }
 ]
