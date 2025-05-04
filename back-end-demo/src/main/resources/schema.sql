@@ -1,0 +1,16 @@
+CREATE SCHEMA IF NOT EXISTS start_app;
+
+
+CREATE TABLE IF NOT EXISTS start_app.book (
+  isbn SERIAL PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP WITHOUT TIME ZONE,
+  modified_at TIMESTAMP WITHOUT TIME ZONE
+);
+
+CREATE TABLE IF NOT EXISTS start_app.author (
+  id SERIAL PRIMARY KEY,
+  isbn SERIAL NOT NULL,
+  name VARCHAR(200) DEFAULT NULL,
+  FOREIGN KEY (isbn) REFERENCES start_app.book(isbn)
+);
