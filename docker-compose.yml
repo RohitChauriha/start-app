@@ -46,7 +46,7 @@ services:
       depends_on:
         - database
       deploy:
-          replicas: 2
+          replicas: 1
 #          restart_policy:
 #            condition: on-failure
 #            max_attempts: 10
@@ -71,4 +71,4 @@ services:
       ports:
         - '5000:5000'
       deploy:
-        replicas: 2
+        replicas: 1

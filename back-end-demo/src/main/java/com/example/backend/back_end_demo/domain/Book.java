@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,19 +17,18 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "book", schema = "start_app")
-public class Book {
+public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(name = "isbn", nullable = false)
     private Long isbn;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "author", joinColumns = @JoinColumn(name = "isbn"))
-    @Column(name = "authors", nullable = false)
-    private List<String> authors = new ArrayList<>();
+    @ManyToMany(mappedBy = "book", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Author> authors = new ArrayList<>();
+
     @Column(columnDefinition = "date", updatable = false)
     private LocalDateTime createdAt;
     @Column(columnDefinition = "date")
