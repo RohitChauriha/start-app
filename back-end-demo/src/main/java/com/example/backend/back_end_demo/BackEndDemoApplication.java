@@ -17,21 +17,14 @@ public class BackEndDemoApplication {
         SpringApplication.run(BackEndDemoApplication.class, args);
     }
 
-    //    @Autowired
-//    BookService bookService;
     @Bean
     public CommandLineRunner startup() {
 
         return args -> {
             String containerId = InetAddress.getLocalHost().getHostName();
             String containerAddress = InetAddress.getLocalHost().getHostAddress();
-            System.setProperty("HOSTNAME", containerId);
-            System.setProperty("IPAddr", containerAddress);
-//            bookService.create(Book.builder().title("First Book").authors(Arrays.asList("author1", "author2")).createdAt(LocalDateTime.now()).modifiedAt(LocalDateTime.now()).build());
-//            bookService.create(Book.builder().title("Second Book").authors(Arrays.asList("author2", "author3")).createdAt(LocalDateTime.now()).modifiedAt(LocalDateTime.now()).build());
-//            System.out.println("Database initialized!");
-//            Iterable<Book> books = bookService.findAll();
-//            books.forEach(System.out::println);
+//            System.setProperty("HOSTNAME", containerId);
+//            System.setProperty("IPAddr", containerAddress);
         };
     }
 }
