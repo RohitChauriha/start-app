@@ -26,7 +26,8 @@ public class Book implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @ManyToMany(mappedBy = "book", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "isbn")
     private List<Author> authors = new ArrayList<>();
 
     @Column(columnDefinition = "date", updatable = false)

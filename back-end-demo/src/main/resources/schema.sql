@@ -1,6 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS start_app;
 
-
 CREATE TABLE IF NOT EXISTS start_app.book (
   isbn SERIAL PRIMARY KEY,
   title VARCHAR(100) NOT NULL,
@@ -10,7 +9,7 @@ CREATE TABLE IF NOT EXISTS start_app.book (
 
 CREATE TABLE IF NOT EXISTS start_app.author (
   id SERIAL PRIMARY KEY,
-  isbn SERIAL NOT NULL,
+  isbn INT,
   name VARCHAR(200) DEFAULT NULL,
   FOREIGN KEY (isbn) REFERENCES start_app.book(isbn)
 );

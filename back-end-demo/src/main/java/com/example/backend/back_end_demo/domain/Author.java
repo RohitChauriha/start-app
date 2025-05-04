@@ -19,10 +19,6 @@ public class Author {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "isbn")
-    private Book book;
-
     @Column(name = "name", nullable = false)
     private String name;
 }
