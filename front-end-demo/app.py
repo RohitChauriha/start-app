@@ -76,15 +76,15 @@ def get_books():
 @app.route('/get-messages', methods=['GET'])
 def get_messages():
     api = "/message"
-    backend_url = BACKEND_SERVICE_URL + api
+    backend_url = CONSUMER_SERVICE_URL + api
     try:
         logger.info("fetching all messages")
         res = requests.get(url=backend_url)
     except (Timeout, ReadTimeout, ConnectTimeout, ConnectionError) as ex:
-        logger.error("not able to connect with backend service with exception %s ", ex)
+        logger.error("not able to connect with consumer service with exception %s ", ex)
         raise ex
     if res.status_code != 200:
-        logger.error("failed to fetch all messages, response from backend: status %s and text %s", res.status_code,
+        logger.error("failed to fetch all messages, response from consumer service: status %s and text %s", res.status_code,
                      res.text)
     return jsonify(res.text)
 
