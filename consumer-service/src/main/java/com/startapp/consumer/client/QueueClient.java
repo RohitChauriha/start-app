@@ -1,4 +1,4 @@
-package com.startapp.consumer.service;
+package com.startapp.consumer.client;
 
 import com.startapp.consumer.domain.Message;
 

@@ -1,6 +1,7 @@
-package com.startapp.consumer.service;
+package com.startapp.consumer.client;
 
 import com.startapp.consumer.domain.Message;
+import com.startapp.consumer.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
