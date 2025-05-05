@@ -11,14 +11,21 @@ app = Flask(__name__)
 server = "0.0.0.0"
 if len(sys.argv) > 1:
     environment = sys.argv[1]
-    BACKEND_PORT = "8080"
-    BACKEND_HOSTNAME = "127.0.0.1"
-    base_url = "http://" + BACKEND_HOSTNAME + ":" + BACKEND_PORT
+    BACKEND_SERVICE_PORT = "8080"
+    BACKEND_SERVICE_HOST = "127.0.0.1"
+    BACKEND_SERVICE_URL = "http://" + BACKEND_SERVICE_HOST + ":" + BACKEND_SERVICE_PORT
+    CONSUMER_SERVICE_PORT = "8080"
+    CONSUMER_SERVICE_HOST = "127.0.0.1"
+    CONSUMER_SERVICE_URL = "http://" + CONSUMER_SERVICE_HOST + ":" + CONSUMER_SERVICE_PORT
     file_handler = logging.FileHandler('../log/front-end-demo.log')
 else:
-    BACKEND_PORT = os.environ['BACKEND_PORT']
-    BACKEND_HOSTNAME = os.environ['BACKEND_HOSTNAME']
-    base_url = "http://" + BACKEND_HOSTNAME + ":" + BACKEND_PORT
+    BACKEND_SERVICE_PORT = os.environ['BACKEND_PORT']
+    BACKEND_SERVICE_HOST = os.environ['BACKEND_HOSTNAME']
+    BACKEND_SERVICE_URL = "http://" + BACKEND_SERVICE_HOST + ":" + BACKEND_SERVICE_PORT
+    CONSUMER_SERVICE_PORT = os.environ['CONSUMER_SERVICE_PORT']
+    CONSUMER_SERVICE_HOST = os.environ['CONSUMER_SERVICE_HOST']
+    CONSUMER_SERVICE_URL = "http://" + CONSUMER_SERVICE_HOST + ":" + CONSUMER_SERVICE_PORT
+
     file_handler = logging.FileHandler('/var/log/front-end-demo.log')
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(formatter)
@@ -30,7 +37,7 @@ logger.setLevel('INFO')
 @app.route('/create-books', methods=['POST'])
 def create_books():
     api = "/book"
-    backend_url = base_url + api
+    backend_url = BACKEND_SERVICE_URL + api
     with open('./data/books.json', 'r') as file:
         books = json.load(file)
     logger.info("backend url is %s" % backend_url)
@@ -54,7 +61,7 @@ def create_books():
 @app.route('/get-books', methods=['GET'])
 def get_books():
     api = "/book"
-    backend_url = base_url + api
+    backend_url = BACKEND_SERVICE_URL + api
     try:
         logger.info("fetching all books")
         res = requests.get(url=backend_url)
@@ -70,7 +77,7 @@ def get_books():
 @app.route('/get-messages', methods=['GET'])
 def get_messages():
     api = "/message"
-    backend_url = base_url + api
+    backend_url = BACKEND_SERVICE_URL + api
     try:
         logger.info("fetching all messages")
         res = requests.get(url=backend_url)
