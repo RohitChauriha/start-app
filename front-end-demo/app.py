@@ -19,13 +19,12 @@ if len(sys.argv) > 1:
     CONSUMER_SERVICE_URL = "http://" + CONSUMER_SERVICE_HOST + ":" + CONSUMER_SERVICE_PORT
     file_handler = logging.FileHandler('../log/front-end-demo.log')
 else:
-    BACKEND_SERVICE_PORT = os.environ['BACKEND_PORT']
-    BACKEND_SERVICE_HOST = os.environ['BACKEND_HOSTNAME']
+    BACKEND_SERVICE_PORT = os.environ['BACKEND_SERVICE_PORT']
+    BACKEND_SERVICE_HOST = os.environ['BACKEND_SERVICE_HOST']
     BACKEND_SERVICE_URL = "http://" + BACKEND_SERVICE_HOST + ":" + BACKEND_SERVICE_PORT
     CONSUMER_SERVICE_PORT = os.environ['CONSUMER_SERVICE_PORT']
     CONSUMER_SERVICE_HOST = os.environ['CONSUMER_SERVICE_HOST']
     CONSUMER_SERVICE_URL = "http://" + CONSUMER_SERVICE_HOST + ":" + CONSUMER_SERVICE_PORT
-
     file_handler = logging.FileHandler('/var/log/front-end-demo.log')
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(formatter)
