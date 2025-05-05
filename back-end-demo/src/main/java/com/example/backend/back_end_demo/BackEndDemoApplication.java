@@ -19,12 +19,9 @@ public class BackEndDemoApplication {
 
     @Bean
     public CommandLineRunner startup() {
-
         return args -> {
-            String containerId = InetAddress.getLocalHost().getHostName();
-            String containerAddress = InetAddress.getLocalHost().getHostAddress();
-//            System.setProperty("HOSTNAME", containerId);
-//            System.setProperty("IPAddr", containerAddress);
+            System.setProperty("HOSTNAME", InetAddress.getLocalHost().getHostName());
+            System.setProperty("IPAddr", InetAddress.getLocalHost().getHostAddress());
         };
     }
 }
