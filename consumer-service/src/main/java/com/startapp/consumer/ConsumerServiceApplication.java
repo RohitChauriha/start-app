@@ -1,4 +1,4 @@
-package com.example.backend.back_end_demo;
+package com.startapp.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -11,10 +11,10 @@ import java.net.InetAddress;
 
 @SpringBootApplication
 @Slf4j
-public class BackEndDemoApplication {
+public class ConsumerServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BackEndDemoApplication.class, args);
+        SpringApplication.run(ConsumerServiceApplication.class, args);
     }
 
     @Bean

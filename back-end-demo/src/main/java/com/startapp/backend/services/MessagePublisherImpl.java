@@ -1,6 +1,6 @@
-package com.example.backend.back_end_demo.services;
+package com.startapp.backend.services;
 
-import com.example.backend.back_end_demo.domain.Message;
+import com.startapp.backend.domain.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;

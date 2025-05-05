@@ -1,8 +1,8 @@
-package com.example.backend.back_end_demo.services;
+package com.startapp.backend.services;
 
-import com.example.backend.back_end_demo.domain.Book;
-import com.example.backend.back_end_demo.domain.Message;
-import com.example.backend.back_end_demo.repository.BookRepository;
+import com.startapp.backend.domain.Book;
+import com.startapp.backend.domain.Message;
+import com.startapp.backend.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

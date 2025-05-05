@@ -1,7 +1,7 @@
-package com.example.backend.back_end_demo.controllers;
+package com.startapp.backend.controllers;
 
-import com.example.backend.back_end_demo.domain.Book;
-import com.example.backend.back_end_demo.services.BookService;
+import com.startapp.backend.domain.Book;
+import com.startapp.backend.services.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package com.example.backend.back_end_demo.config;
+package com.startapp.consumer.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Queue;
@@ -33,7 +33,7 @@ public class RabbitMQConfiguration {
     @Bean
     public MessageConverter jsonToMapMessageConverter() {
         DefaultClassMapper defaultClassMapper = new DefaultClassMapper();
-        defaultClassMapper.setTrustedPackages("com.example.backend.back_end_demo.*");
+        defaultClassMapper.setTrustedPackages("com.startapp.consumer.domain.*");
         Jackson2JsonMessageConverter jackson2JsonMessageConverter = new Jackson2JsonMessageConverter();
         jackson2JsonMessageConverter.setClassMapper(defaultClassMapper);
         return jackson2JsonMessageConverter;

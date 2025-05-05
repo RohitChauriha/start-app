@@ -1,6 +1,6 @@
-package com.example.backend.back_end_demo.repository;
+package com.startapp.backend.repository;
 
-import com.example.backend.back_end_demo.domain.Book;
+import com.startapp.backend.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookRepository extends JpaRepository<Book, String> {

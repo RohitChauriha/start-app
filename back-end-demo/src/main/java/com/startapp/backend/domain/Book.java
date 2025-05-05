@@ -1,4 +1,4 @@
-package com.example.backend.back_end_demo.domain;
+package com.startapp.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.backend.back_end_demo.domain;
+package com.startapp.consumer.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
