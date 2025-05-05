@@ -24,6 +24,7 @@ public class MessageController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Message> list() {
+        log.info("fetching all messages");
         return messageService.findAll();
     }
 
