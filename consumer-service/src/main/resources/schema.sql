@@ -1,0 +1,7 @@
+CREATE SCHEMA IF NOT EXISTS start_app;
+
+CREATE TABLE IF NOT EXISTS start_app.message (
+  id SERIAL PRIMARY KEY,
+  message VARCHAR(100) NOT NULL,
+  consumed_at TIMESTAMP WITHOUT TIME ZONE
+);
