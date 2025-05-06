@@ -4,13 +4,26 @@ networks:
     driver_opts:
       encrypted: 'true'
     attachable: true
-  private:
+  backend-services:
     driver: overlay
     driver_opts:
       encrypted: 'true'
     attachable: true
-#  rabbitmq_net:
-#    driver: overlay
+  database-cluster:
+    driver: overlay
+    driver_opts:
+      encrypted: 'true'
+    attachable: true
+  consumer-services:
+    driver: overlay
+    driver_opts:
+      encrypted: 'true'
+    attachable: true
+  queue-cluster:
+    driver: overlay
+    driver_opts:
+      encrypted: 'true'
+    attachable: true
 
 volumes:
   db-data:
@@ -19,7 +32,7 @@ services:
   database:
     image: postgres:9.6.6
     networks:
-      - private
+      - database-cluster
     volumes:
       - db-data:/var/lib/postgresql/data
     deploy:
@@ -40,7 +53,9 @@ services:
     volumes:
       - /var/log/start-app/backend:/var/log
     networks:
-      - private
+      - backend-services
+      - database-cluster
+      - queue-cluster
     environment:
       POSTGRES_HOST: 'postgres'
       POSTGRES_PORT: '5432'
@@ -48,7 +63,7 @@ services:
     depends_on:
       - database
     deploy:
-      replicas: 1
+      replicas: 2
   #          restart_policy:
   #            condition: on-failure
   #            max_attempts: 10
@@ -68,7 +83,9 @@ services:
     volumes:
       - /var/log/start-app/consumer-service:/var/log
     networks:
-      - private
+      - consumer-services
+      - database-cluster
+      - queue-cluster
     environment:
       POSTGRES_HOST: 'postgres'
       POSTGRES_PORT: '5432'
@@ -76,18 +93,19 @@ services:
     depends_on:
       - database
     deploy:
-      replicas: 1
+      replicas: 2
   frontend:
     image: rodoch/front-end-image:latest
     networks:
       - public
-      - private
+      - consumer-services
+      - backend-services
     volumes:
       - /var/log/start-app/frontend:/var/log
     ports:
       - '5000:5000'
     deploy:
-      replicas: 1
+      replicas: 2
 
   rabbitmq1:
     image: rabbitmq:3-management
@@ -96,11 +114,11 @@ services:
       - RABBITMQ_ERLANG_COOKIE=duJLSnUj3nia1n5GZIse6A==
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
     networks:
-      - private
+      - queue-cluster
 #    healthcheck:
 #      test: [ "CMD", "rabbitmqctl", "status" ]
 #      interval: 10s
